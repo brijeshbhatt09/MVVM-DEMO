@@ -15,11 +15,11 @@ import retrofit2.Response
 
 object ProjectRepository {
 
-    private val viewResponseMutableLiveData: MutableLiveData<HomeResponse> =
-        MutableLiveData<HomeResponse>()
+    private val viewResponseMutableLiveData: MutableLiveData<HomeResponse?> =
+        MutableLiveData<HomeResponse?>()
 
     /*API CALL to get response*/
-    fun getHomeResponse(url: String): MutableLiveData<HomeResponse> {
+    fun getHomeResponse(url: String): MutableLiveData<HomeResponse?> {
         val Call: Call<HomeResponse> =
             AppDataManager.callHomeApi(url)
         Call.enqueue(object : Callback<HomeResponse?> {
