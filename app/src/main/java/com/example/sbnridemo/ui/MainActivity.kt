@@ -1,7 +1,8 @@
-package com.example.sbnridemo
+package com.example.sbnridemo.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.sbnridemo.R
 
 class MainActivity : AppCompatActivity() {
 
