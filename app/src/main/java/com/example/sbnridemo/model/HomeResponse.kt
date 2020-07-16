@@ -1,6 +1,5 @@
 package com.example.sbnridemo.model
 
-import com.brijesh.testdemo.model.RowModel
 import java.util.*
 
 /**
@@ -9,13 +8,13 @@ import java.util.*
 
 class HomeResponse {
 
-    private var data: ArrayList<RowModel?>? = null
+    private var data: List<RowModel?>? = null
 
-    fun getData(): ArrayList<RowModel?>? {
+    open fun getData(): List<RowModel?>? {
         return data
     }
 
-    fun setData(data: ArrayList<RowModel?>?) {
+    open fun setData(data: List<RowModel?>?) {
         this.data = data
     }
 }

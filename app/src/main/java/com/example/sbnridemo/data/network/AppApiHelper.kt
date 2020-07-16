@@ -1,6 +1,7 @@
 package com.example.sbnridemo.data.network
 
 import com.example.sbnridemo.model.HomeResponse
+import com.example.sbnridemo.model.RowModel
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -29,11 +30,11 @@ object AppApiHelper : ApiHelper{
             .addInterceptor(loggingInterceptor)
             .build()
         return Retrofit.Builder()
-            .baseUrl("http://www.highwaypitstop.com/")
+            .baseUrl("https://api.github.com/orgs/octokit/")
             .client(okHttpClient).addConverterFactory(GsonConverterFactory.create(gson)).build()
     }
 
-    override fun callHomeApi(url: String): Call<HomeResponse> {
-        return apiClient().create(ApiRequest::class.java).callHomeApi(url)
+    override fun callHomeApi(page : Int, url: String): Call<List<RowModel>> {
+        return apiClient().create(ApiRequest::class.java).callHomeApi(url, page, 10)
     }
 }

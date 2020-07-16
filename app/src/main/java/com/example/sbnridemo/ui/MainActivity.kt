@@ -8,12 +8,19 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.sbnridemo.R
 import com.example.sbnridemo.databinding.ActivityMainBinding
+import com.example.sbnridemo.model.HomeResponse
+import com.example.sbnridemo.model.RowModel
+import com.example.sbnridemo.ui.adapter.HomeAdapter
 import com.example.sbnridemo.viewmodel.HomeViewModel
+
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var binding : ActivityMainBinding
+    lateinit var binding: ActivityMainBinding
     lateinit var viewModel: HomeViewModel
+    var list: ArrayList<RowModel?> = ArrayList()
+    lateinit var adapter: HomeAdapter
+    var pageRequest = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,15 +31,19 @@ class MainActivity : AppCompatActivity() {
 
         viewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
         binding.viewModel = viewModel
+
+        adapter = HomeAdapter(this@MainActivity, list)
+        binding.recyclerView.adapter = adapter
+        observerResponse()
     }
 
     private fun observerResponse() {
-        viewModel.getHomeResponse("http://www.highwaypitstop.com/API/test.json")!!.observe(
+        viewModel.getHomeResponse(pageRequest, "https://api.github.com/orgs/octokit/repos")!!.observe(
             this,
-            Observer<Any?> { homeResponse ->
+            Observer<HomeResponse?> { homeResponse ->
                 if (homeResponse != null) {
-                    list.addAll(homeResponse.getData())
-                    binding.recyclerView.adapter!!.notifyDataSetChanged()
+                    homeResponse.getData()?.let { list.addAll(it) }
+                    adapter.notifyDataSetChanged()
                     Handler().postDelayed({
                         viewModel.setLoading(false)
                     }, 500)

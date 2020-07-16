@@ -1,9 +1,9 @@
 package com.example.sbnridemo.data.network
 
 import com.example.sbnridemo.model.HomeResponse
+import com.example.sbnridemo.model.RowModel
 import retrofit2.Call
-import retrofit2.http.POST
-import retrofit2.http.Url
+import retrofit2.http.*
 
 /**
  * Created by ${Brijesh.Bhatt} on 15/07/20.
@@ -11,6 +11,6 @@ import retrofit2.http.Url
 
 interface ApiRequest {
 
-    @POST
-    fun callHomeApi(@Url url: String): Call<HomeResponse>
+    @GET
+    fun callHomeApi( @Url url: String, @Query("page")  page : Int, @Query("per_page")  num : Int): Call<List<RowModel>>
 }

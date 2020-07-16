@@ -16,10 +16,10 @@ class HomeViewModel : ViewModel() {
     private val isLoading = MutableLiveData<Boolean>()
 
 
-    fun getHomeResponse(url: String): LiveData<HomeResponse?>? {
+    fun getHomeResponse(page : Int, url: String): LiveData<HomeResponse?>? {
         if (viewResponse == null) {
             isLoading.setValue(true)
-            viewResponse = ProjectRepository.getHomeResponse(url)
+            viewResponse = ProjectRepository.getHomeResponse(page, url)
         }
         return viewResponse
     }

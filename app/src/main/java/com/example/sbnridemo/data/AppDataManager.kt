@@ -1,7 +1,7 @@
 package com.example.sbnridemo.data
 
 import com.example.sbnridemo.data.network.AppApiHelper
-import com.example.sbnridemo.model.HomeResponse
+import com.example.sbnridemo.model.RowModel
 import retrofit2.Call
 
 /**
@@ -10,7 +10,7 @@ import retrofit2.Call
 
 object AppDataManager : DataManager {
 
-    override fun callHomeApi(url: String): Call<HomeResponse> {
-        return AppApiHelper.callHomeApi(url)
+    override fun callHomeApi(page : Int, url: String): Call<List<RowModel>> {
+        return AppApiHelper.callHomeApi(page, url)
     }
 }
