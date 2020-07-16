@@ -17,11 +17,11 @@ import java.util.*
 
 object ProjectRepository {
 
-    private val viewResponseMutableLiveData: MutableLiveData<HomeResponse?> =
-        MutableLiveData<HomeResponse?>()
+    lateinit var viewResponseMutableLiveData: MutableLiveData<HomeResponse?>
 
     /*API CALL to get response*/
     fun getHomeResponse(page : Int, url: String): MutableLiveData<HomeResponse?> {
+        viewResponseMutableLiveData = MutableLiveData<HomeResponse?>()
         val Call: Call<List<RowModel>> = AppDataManager.callHomeApi(page, url)
         Call.enqueue(object : Callback<List<RowModel>?> {
 

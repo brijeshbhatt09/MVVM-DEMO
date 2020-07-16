@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sbnridemo.R
 import com.example.sbnridemo.databinding.RowItemLayoutBinding
+import com.example.sbnridemo.interfaces.ILoadMoreContent
 import com.example.sbnridemo.model.RowModel
 import java.util.*
 
@@ -19,10 +20,12 @@ class HomeAdapter : RecyclerView.Adapter<HomeAdapter.ItemViewHolder> {
 
     lateinit var dataList: List<RowModel?>
     lateinit var mContext: Context
+    lateinit var listenerLoadMore : ILoadMoreContent
 
-    constructor(context: Context, dataList: ArrayList<RowModel?>) {
+    constructor(context: Context, listener : ILoadMoreContent, dataList: ArrayList<RowModel?>) {
         this.dataList = dataList
         this.mContext = context
+        this.listenerLoadMore = listener
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
@@ -40,6 +43,8 @@ class HomeAdapter : RecyclerView.Adapter<HomeAdapter.ItemViewHolder> {
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
 
         holder.binding.rows = dataList.get(position)
+        if(position == dataList.size - 1)
+            listenerLoadMore.loadMore()
     }
 
     class ItemViewHolder(binding: RowItemLayoutBinding) : RecyclerView.ViewHolder(binding.root) {

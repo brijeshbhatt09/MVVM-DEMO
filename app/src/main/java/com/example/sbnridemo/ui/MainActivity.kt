@@ -8,13 +8,14 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.sbnridemo.R
 import com.example.sbnridemo.databinding.ActivityMainBinding
+import com.example.sbnridemo.interfaces.ILoadMoreContent
 import com.example.sbnridemo.model.HomeResponse
 import com.example.sbnridemo.model.RowModel
 import com.example.sbnridemo.ui.adapter.HomeAdapter
 import com.example.sbnridemo.viewmodel.HomeViewModel
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), ILoadMoreContent {
 
     lateinit var binding: ActivityMainBinding
     lateinit var viewModel: HomeViewModel
@@ -32,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         viewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
         binding.viewModel = viewModel
 
-        adapter = HomeAdapter(this@MainActivity, list)
+        adapter = HomeAdapter(this@MainActivity, this, list)
         binding.recyclerView.adapter = adapter
         observerResponse()
     }
@@ -43,11 +44,19 @@ class MainActivity : AppCompatActivity() {
             Observer<HomeResponse?> { homeResponse ->
                 if (homeResponse != null) {
                     homeResponse.getData()?.let { list.addAll(it) }
-                    adapter.notifyDataSetChanged()
+                    binding.recyclerView.post (
+                        Runnable { adapter.notifyDataSetChanged()}
+                    )
+
                     Handler().postDelayed({
                         viewModel.setLoading(false)
                     }, 500)
                 }
             })
+    }
+
+    override fun loadMore() {
+        pageRequest ++;
+        observerResponse()
     }
 }

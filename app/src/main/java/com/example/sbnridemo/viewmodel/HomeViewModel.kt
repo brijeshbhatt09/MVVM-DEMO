@@ -19,8 +19,9 @@ class HomeViewModel : ViewModel() {
     fun getHomeResponse(page : Int, url: String): LiveData<HomeResponse?>? {
         if (viewResponse == null) {
             isLoading.setValue(true)
-            viewResponse = ProjectRepository.getHomeResponse(page, url)
         }
+        viewResponse = ProjectRepository.getHomeResponse(page, url)
+
         return viewResponse
     }
 
