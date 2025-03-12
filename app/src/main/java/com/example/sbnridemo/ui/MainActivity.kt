@@ -5,7 +5,7 @@ import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.example.sbnridemo.R
 import com.example.sbnridemo.databinding.ActivityMainBinding
 import com.example.sbnridemo.interfaces.ILoadMoreContent
@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity(), ILoadMoreContent {
 
         binding.lifecycleOwner = this
 
-        viewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
         binding.viewModel = viewModel
 
         adapter = HomeAdapter(this@MainActivity, this, list)

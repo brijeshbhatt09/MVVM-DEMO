@@ -2,7 +2,7 @@ package com.example.sbnridemo.data.Persistence
 
 import androidx.room.Dao
 import androidx.room.Insert
-import androidx.room.OnConflictStrategy.REPLACE
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.sbnridemo.model.HomeResponse
 
@@ -12,7 +12,7 @@ import com.example.sbnridemo.model.HomeResponse
 @Dao
 interface HomeDao {
 
-    @Insert(onConflict = REPLACE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertResponse(homeResponse: HomeResponse?)
 
     @Query("SELECT * FROM homeresponse WHERE id LIKE :id")
